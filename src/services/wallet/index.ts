@@ -284,3 +284,34 @@ export {
   getTokenInfo,
   smartContractCall,
 };
+
+export interface WalletState {
+  isConnected: boolean;
+  account: string | null;
+  chainId: string | null;
+  balance: string | null;
+  error: Error | null;
+}
+
+export interface Chain {
+  id: string;
+  name: string;
+  icon?: string;
+  rpcUrl: string;
+}
+
+export interface WalletConfig {
+  supportedChains: Chain[];
+  defaultChain?: string;
+  modalOptions?: {
+    display: 'modal' | 'iframe' | 'popup';
+    position?: 'center' | 'bottom';
+  };
+}
+
+export interface WalletContextValue extends WalletState {
+  connect: (chainId: string) => Promise<void>;
+  disconnect: () => Promise<void>;
+  openModal: () => void;
+  closeModal: () => void;
+}
